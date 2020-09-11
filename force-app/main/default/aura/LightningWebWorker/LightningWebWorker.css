@@ -1,0 +1,10 @@
+.THIS {
+  width: 0;
+  height: 0;
+}
+.THIS iframe.invisible {
+  width: 0;
+  height: 0;
+  outline: none;
+  visibility: hidden;
+}

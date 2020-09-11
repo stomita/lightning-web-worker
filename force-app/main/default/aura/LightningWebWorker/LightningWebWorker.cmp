@@ -1,0 +1,4 @@
+<aura:component >
+  <aura:attribute name="proxy" type="String" required="true" default="" />
+  <lightning:container class="invisible" src="{!v.proxy}" />
+</aura:component>
