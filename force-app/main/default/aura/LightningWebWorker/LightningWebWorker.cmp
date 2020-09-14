@@ -1,4 +1,15 @@
-<aura:component >
-  <aura:attribute name="proxy" type="String" required="true" default="" />
-  <lightning:container class="invisible" src="{!v.proxy}" />
+<aura:component access="global">
+  <aura:attribute name="proxy" type="String" required="true" default="" access="global" />
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+  <ltng:require
+    scripts="{!$Resource.LightningWebWorkerProxyJS + '/client.js'}"
+    afterScriptsLoaded="{!c.initScript}"
+  />
+  <lightning:container
+    aura:id="lightning-container"
+    class="invisible"
+    src="{!v.proxy}"
+    onmessage="{!c.handleMessage}"
+    onerror="{!c.handleError}"
+  />
 </aura:component>
