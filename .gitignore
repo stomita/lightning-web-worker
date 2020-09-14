@@ -1,4 +1,5 @@
 .sfdx
 
 dist
+pkg
 node_modules

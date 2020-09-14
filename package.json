@@ -1,7 +1,7 @@
 {
   "name": "lightning-web-worker",
   "version": "1.0.0",
-  "description": "",
+  "description": "Web Worker implementation which running on Lightning (using lightning:container)",
   "main": "dist/client.js",
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -11,7 +11,10 @@
     "dist": "run-p dist:main dist:example",
     "dist:main": "cp dist/* force-app/main/default/staticresources/LightningWebWorkerProxyJS",
     "dist:example": "cp dist/server.* force-app/example/default/staticresources/MyWebWorkerProxy",
-    "deploy": "sfdx force:source:push"
+    "push": "sfdx force:source:push",
+    "convert": "sfdx force:source:convert --rootdir force-app/main/default --outputdir pkg",
+    "deploy": "run-s convert deploy:pkg",
+    "deploy:pkg": "sfdx force:mdapi:deploy --deploydir pkg -w 10"
   },
   "author": "Shinichi Tomita <shinichi.tomita@gmail.com>",
   "license": "MIT",
