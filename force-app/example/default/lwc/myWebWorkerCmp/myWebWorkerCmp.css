@@ -1,0 +1,7 @@
+.calculation-spinner {
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+  width: 30px;
+  height: 30px;
+}

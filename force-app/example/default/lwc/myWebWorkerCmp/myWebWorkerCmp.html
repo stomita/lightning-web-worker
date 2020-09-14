@@ -1,7 +1,30 @@
 <template>
   <div class="slds-p-around_medium">
-    <lightning-textarea label="Request" value={requestText} onchange={onChangeText}></lightning-textarea>
-    <lightning-button label="Start" onclick={handleClick}></lightning-button>
-    <lightning-textarea label="Response" value={responseText} read-only></lightning-textarea>
+    <lightning-input
+      label="Input Number"
+      type="number"
+      value={input}
+      onchange={onChangeInput}
+    ></lightning-input>
+    <div>
+      <lightning-button
+        label="Start Calc"
+        disabled={calculationDisabled}
+        onclick={startCalc}
+      ></lightning-button>
+      <lightning-button
+        label="Start Calc (Worker)"
+        disabled={calculationDisabled}
+        onclick={startCalcInWorker}
+      ></lightning-button>
+      <div if:true={calculating} class="calculation-spinner">
+        <lightning-spinner size="small"></lightning-spinner>
+      </div>
+    </div>
+    <lightning-input
+      label="Output"
+      value={output}
+      read-only
+    ></lightning-input>
   </div>
 </template>
