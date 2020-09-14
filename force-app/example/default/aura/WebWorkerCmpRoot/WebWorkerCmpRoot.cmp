@@ -1,0 +1,6 @@
+<aura:component access="global" implements="force:appHostable,flexipage:availableForAllPageTypes">
+  <c:lightningWebWorker proxy="{!$Resource.MyWebWorkerProxy + '/index.html'}" />
+  <div class="root">
+    <c:myWebWorkerCmp></c:myWebWorkerCmp>
+  </div>
+</aura:component>	

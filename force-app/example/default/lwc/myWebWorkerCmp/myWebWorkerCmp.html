@@ -1,0 +1,7 @@
+<template>
+  <div class="slds-p-around_medium">
+    <lightning-textarea label="Request" value={requestText} onchange={onChangeText}></lightning-textarea>
+    <lightning-button label="Start" onclick={handleClick}></lightning-button>
+    <lightning-textarea label="Response" value={responseText} read-only></lightning-textarea>
+  </div>
+</template>
