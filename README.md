@@ -50,13 +50,14 @@ If you want to use Web Worker in Lightning Components, first you need to preare 
 </aura:component>	
 ```
 
-The `YourWebWorkerProxy` is the static resource which has following file structure:
+The `YourWebWorkerProxy` is a static resource which has following file structure:
 
 ```
-+ YourWebWorkerProxy
-   +-- index.html
-   +-- server.js
-   +-- worker.js
+- staticresources
+  └── YourWebWorkerProxy
+      ├── index.html
+      ├── server.js
+      └── worker.js
 ```
 
 First you have to prepare a proxy html file with a very simple content to invoke Workers in lightning container. 
