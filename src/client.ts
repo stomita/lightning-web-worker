@@ -2,6 +2,8 @@ import {
   MSG_WORKER_NEW,
   MSG_WORKER_POST_MESSAGE,
   MSG_WORKER_ADD_EVENT_LISTENER,
+  MSG_WORKER_REMOVE_EVENT_LISTENER,
+  MSG_WORKER_TERMINATE,
 } from "./constant";
 
 /**
@@ -102,6 +104,23 @@ class LightningWebWorkerClient {
       });
     }
     this.listeners.push(listener);
+  }
+
+  removeEventListener(type: string, listener: (e: MessageEvent) => void): void {
+    this.listeners = this.listeners.filter((l) => l !== listener);
+    if (this.listeners.length === 0) {
+      this.container.message({
+        name: MSG_WORKER_REMOVE_EVENT_LISTENER,
+        value: { instanceId: this.instanceId },
+      });
+    }
+  }
+
+  terminate(): void {
+    this.container.message({
+      name: MSG_WORKER_TERMINATE,
+      value: { instanceId: this.instanceId },
+    });
   }
 
   receiveEvent(evt: MessageEvent): void {

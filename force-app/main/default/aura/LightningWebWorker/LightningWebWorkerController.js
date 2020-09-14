@@ -1,6 +1,8 @@
 ({
   init: function (cmp, evt, helper) {
-    window.Worker = helper.declareWorker(cmp);
+    if (typeof window.Worker === "undefined") {
+      window.Worker = helper.declareWorker(cmp);
+    }
   },
   initScript: function (cmp, evt, helper) {
     helper.scriptLoaded = true;

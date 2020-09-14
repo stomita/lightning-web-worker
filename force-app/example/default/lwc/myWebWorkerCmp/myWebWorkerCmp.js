@@ -50,6 +50,7 @@ export default class MyWebWorkerCmp extends LightningElement {
       console.log("worker onmessage", e);
       this.output = e.data;
       this.calculating = false;
+      worker.terminate();
     };
   }
 }

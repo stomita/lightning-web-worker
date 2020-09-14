@@ -1,11 +1,13 @@
 ({
+  workers: {},
+
   scriptLoaded: false,
 
   containerLoaded: false,
 
   declareWorker: function (cmp) {
     var id = 0;
-    window._ltngWebWorkers = {};
+    var helper = this;
     var container = cmp.find("lightning-container");
     var Worker = function (url, options) {
       var instanceId = String(++id);
@@ -18,22 +20,25 @@
       if (window.LightningWebWorkerClient) {
         this.client = LightningWebWorkerClient.create(this, container);
       }
-      window._ltngWebWorkers[instanceId] = this;
+      helper.workers[instanceId] = this;
     };
-    Worker.prototype.postMessage = function () {
-      if (this.client) {
-        this.client.postMessage.apply(this.client, arguments);
-      } else {
-        this.requestQueue.push(["postMessage", arguments]);
-      }
-    };
-    Worker.prototype.addEventListener = function () {
-      if (this.client) {
-        this.client.addEventListener.apply(this.client, arguments);
-      } else {
-        this.requestQueue.push(["addEventListener", arguments]);
-      }
-    };
+    [
+      "postMessage",
+      "addEventListener",
+      "removeEventListener",
+      "terminate",
+    ].forEach(function (method) {
+      Worker.prototype[method] = function () {
+        if (this.client) {
+          this.client[method].apply(this.client, arguments);
+        } else {
+          this.requestQueue.push([method, arguments]);
+        }
+        if (method === "terminate") {
+          delete helper.workers[this.instanceId];
+        }
+      };
+    });
     return Worker;
   },
 
@@ -44,8 +49,8 @@
     }
     var container = cmp.find("lightning-container");
     container.message({ name: "worker:init", value: Date.now().toString() });
-    for (var instanceId in window._ltngWebWorkers) {
-      var instance = window._ltngWebWorkers[instanceId];
+    for (var instanceId in helper.workers) {
+      var instance = helper.workers[instanceId];
       if (!instance.client) {
         instance.client = LightningWebWorkerClient.create(instance, container);
       }
@@ -57,8 +62,11 @@
       console.error("load error: LightningWebWorkerClient is not found");
       return;
     }
-    const instanceId = message.instanceId;
-    var instance = window._ltngWebWorkers[instanceId];
+    var instance = this.workers[message.instanceId];
+    if (!instance) {
+      console.warn("the worker instance is not found or already terminated");
+      return;
+    }
     var e = new MessageEvent(message.type, {
       data: message.data,
       origin: "",
