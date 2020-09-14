@@ -82,20 +82,16 @@ you just add code to invoke Worker like usual browser app in your Lightning comp
 Note that the path to the worker script should be relative to the proxy html file, not from the component.
 
 ```javascript
-class CountCalculationCmp extends LightningElement {  
+class YourCompWithWebWorker extends LightningElement {  
 
   // ...
   startCalcInWorker() {
     console.log("creating worker...");
-    this.calculating = true;
-    this.output = null;
     const worker = new Worker("./worker.js");
-    const input = Number(this.input);
-    worker.postMessage(input);
+    worker.postMessage(this.input);
     worker.onmessage = (e) => {
       console.log("worker onmessage", e);
-      this.output = e.data;
-      this.calculating = false;
+      this.result = e.data;
     };
   }
   // ...
