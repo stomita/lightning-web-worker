@@ -1,14 +1,19 @@
 # Lightning Web Worker
 
-Web Worker implementation running on Lightning platform (Locker Service)
+A Web Worker implementation running on Lightning platform (Locker Service)
 
 ## Abstract
 
+The Lightning (Aura/Web) components are using Lightning Locker (a.k.a. Locker Service) for the separation of execution context.
+It is known that the Locker prevents the usage of some built-in objects which web browsers are exposing.
+Web Worker is one of the objects that is not available in the context of Locker.
+
+This implementation polyfills the Worker object in the Locker context, and passes to the native Worker living in lightning:container.
 
 
 ## Setup
 
-### Creating Scratch Org
+### Create Scratch Org
 
 ```
 $ sfdx force:org:create -f config/project-scratch-def.json --setdefaultusername
@@ -33,4 +38,9 @@ $ sfdx force:source:push
 ```
 $ sfdx force:org:open -p lightning/n/WebWorker
 ```
+
+## Known Limits
+
+As it uses `lightning-container` for message communication between workers, the message objects is serialized in JSON, so only the transferable objects that can be serialized to JSON is supported as messages.
+
 
