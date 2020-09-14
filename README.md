@@ -41,6 +41,7 @@ $ sfdx force:org:open -p lightning/n/WebWorker
 
 ## Known Limits
 
-As it uses `lightning-container` for message communication between workers, the message objects is serialized in JSON, so only the transferable objects that can be serialized to JSON is supported as messages.
+As it uses `lightning-container` for message communication between workers, the message objects are serialized in JSON.
+So only the transferable objects that can be serialized to JSON is supported as messages.
 
 
