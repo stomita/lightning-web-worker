@@ -1,0 +1,13 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+}
+.bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 8px;
+  background-color: #1212ff;
+}
