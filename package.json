@@ -1,7 +1,7 @@
 {
   "name": "lightning-web-worker",
   "version": "1.0.0",
-  "description": "Web Worker implementation which running on Lightning (using lightning:container)",
+  "description": "Web Worker implementation running on Lightning platform (Locker Service)",
   "main": "dist/client.js",
   "scripts": {
     "typecheck": "tsc --noEmit",
