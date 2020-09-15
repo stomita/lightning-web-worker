@@ -103,4 +103,4 @@ class YourCompWithWebWorker extends LightningElement {
 As it uses `lightning-container` for message communication between workers, the message objects are serialized in JSON.
 So only the transferable objects that can be serialized to JSON is supported as messages.
 
-
+[Inline worker](https://www.html5rocks.com/en/tutorials/workers/basics/#toc-inlineworkers) is not supported due to the CSP restriction in lightning:container.
